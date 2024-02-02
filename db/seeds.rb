@@ -5,3 +5,19 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+# Création de données fictives pour une journée date = 2022-08-22
+
+date = Date.parse("2022-08-22")
+times = (0..23).to_a.product((0..59).to_a).map { |h, m| Time.utc(date.year, date.month, date.day, h, m) }
+values = (100..200).to_a.map { |v| BigDecimal("#{v}.#{rand(0..99)}") }
+
+times.each_with_index do |time, index|
+  PotatoPrice.create(time: time, value: values.sample)
+end
+
+puts "Data seeded successfully!"
+
+
+# Cas dans le test technique date = 2022-08-23
+PotatoPrice.create [{"time":"2022-08-23T09:00:00.000Z","value":"100.25"},{"time":"2022-08-23T09
+  :00:01.800Z","value":"100.29"} ]
